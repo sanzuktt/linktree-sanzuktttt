@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a0d12">
+<title>Sanzuukt.Linktree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #fff7ee;
+    --muted: #f0d9c4;
+    --accent: #fca311;
+    --on-accent: #1a0d12;
+    --glass: rgba(20, 8, 12, .55);
+    --bg-image: url("https://i.pinimg.com/736x/66/cc/f3/66ccf334820a6c53f03de23a8a8369e5.jpg"); /* di-set ulang dari PROFILE.background */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+ 
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(to bottom, rgba(10,4,8,.35) 0%, rgba(10,4,8,.55) 55%, rgba(10,4,8,.85) 100%),
+      var(--bg-image) center 20% / cover no-repeat;
+    background-color: #1a0d12;
+  }
+ 
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 24px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+    padding-top: calc(24px + env(safe-area-inset-top, 0px));
+  }
+ 
+  main { width: 100%; max-width: 440px; text-align: center; }
+ 
+  .avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: var(--accent); color: var(--on-accent);
+    display: grid; place-items: center;
+    font-size: 36px; font-weight: 700;
+    margin: 0 auto 14px;
+    border: 3px solid rgba(255,255,255,.85);
+    overflow: hidden;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+ 
+  h1 { font-size: 1.5rem; font-weight: 700; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .bio { color: var(--muted); margin: 8px 0 28px; line-height: 1.5; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+ 
+  .links { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+  .links a {
+    display: block; padding: 16px 20px;
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.18);
+    color: var(--text);
+    text-decoration: none; font-weight: 500;
+    border-radius: 14px;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .links a:hover, .links a:focus-visible {
+    background: var(--accent); color: var(--on-accent);
+    border-color: var(--accent); outline: none;
+  }
+ 
+  footer { margin-top: 28px; color: var(--muted); font-size: .85rem; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+ 
+  @media (min-width: 768px) {
+    body { align-items: center; }
+    body::before {
+      background:
+        linear-gradient(to bottom, rgba(10,4,8,.45), rgba(10,4,8,.7)),
+        var(--bg-image) center 25% / cover no-repeat;
+      background-color: #1a0d12;
+    }
+    main {
+      background: rgba(20, 8, 12, .35);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      padding: 40px 32px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+  }
+  @media (max-height: 560px) { body { align-items: flex-start; } }
+  @media (prefers-reduced-motion: reduce) { .links a { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="avatar" id="avatar"></div>
+  <h1 id="name"></h1>
+  <p class="bio" id="bio"></p>
+  <ul class="links" id="links"></ul>
+  <footer id="footer"></footer>
+</main>
+ 
+<script>
+/* ============================================================
+   EDIT DI SINI SAJA. Bagian lain tidak perlu disentuh.
+   ============================================================ */
+const PROFILE = {
+  name: "SanzuKT",
+  bio: "Web developer & UI/UX designer. Terbuka untuk proyek freelance.",
+ 
+  // Foto profil: taruh file di folder yang sama, lalu tulis namanya.
+  // Kosongkan ("") atau file tidak ada -> tampil huruf depan nama.
+  avatar: "https://i.pinimg.com/736x/4a/6e/e8/4a6ee8c66df4cecca504e37cf0523a09.jpg",
+ 
+  // Gambar latar
+  background: "https://i.pinimg.com/736x/66/cc/f3/66ccf334820a6c53f03de23a8a8369e5.jpg",
+ 
+  footer: "© Copyright 2026 SanzuKT",
+ 
+  links: [
+    { label: "Instagram", url: "https://www.instagram.com/brodyyblack_?obrf=a3I5MWNhdDk5NDBn&utm_source=qr" },
+    { label: "GitHub",    url: "https://github.com/sanzuktt" },
+    { label: "TikTok",    url: "https://www.tiktok.com/@brodyyblacki_" },
+    { label: "Discord",   url: "https://discord.gg/xJZVcPFNX8" }
+    // Tambah link baru: { label: "Nama", url: "https://..." },
+  ]
+};
+/* ============================================================ */
+ 
+(function () {
+  const $ = (id) => document.getElementById(id);
+ 
+  document.title = PROFILE.name + " | Linktree";
+  $("name").textContent = PROFILE.name;
+  $("bio").textContent = PROFILE.bio;
+  $("footer").textContent = PROFILE.footer;
+ 
+  if (PROFILE.background) {
+    document.documentElement.style.setProperty("--bg-image", 'url("' + PROFILE.background + '")');
+  }
+ 
+  // Avatar: foto kalau ada, kalau tidak huruf depan
+  const avatar = $("avatar");
+  const showInitial = () => { avatar.textContent = PROFILE.name.trim().charAt(0).toUpperCase(); };
+  if (PROFILE.avatar) {
+    const img = new Image();
+    img.alt = PROFILE.name;
+    img.onload = () => { avatar.textContent = ""; avatar.appendChild(img); };
+    img.onerror = showInitial;
+    img.src = PROFILE.avatar;
+  } else {
+    showInitial();
+  }
+ 
+  // Link
+  const list = $("links");
+  PROFILE.links.forEach((l) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = l.url;
+    a.textContent = l.label;
+    a.target = "_blank";
+    a.rel = "noopener";
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
